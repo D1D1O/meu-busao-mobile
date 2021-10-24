@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import MapView, { Marker, Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Modalize } from 'react-native-modalize';
-import { View, Dimensions, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, Dimensions, StyleSheet, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native';
 import MiniIcon from '../../assets/mini-icon.png';
-import { Ionicons, FontAwesome, Fontisto } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
+import { Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, DrawerActions, StackActions } from '@react-navigation/native';
 import { useTheme } from '../../contexts/theme';
 import LocaleFavorited from '../../components/LocaleFavorited';
+import LocaleSuggested from '../../components/LocaleSuggested';
 import GoogleMapsStyle from '../../utils/googleMapsStyleDark';
 
 import {
@@ -50,12 +50,6 @@ const Home: React.FC = () => {
 				}).then((position) => {
 					setLocation(position);
 				});
-			} else {
-				// showMessage({
-				// 	message: 'Precisamos do acesso da sua localização',
-				// 	type: 'warning',
-				// 	icon: 'warning'
-				// });
 			}
 		}
 		initialLoading();
@@ -72,6 +66,11 @@ const Home: React.FC = () => {
 		}
 	}, [location]);
 
+	const navigatePush = useCallback((name: string) => {
+		modalizeRef.current?.close();
+		navigation.dispatch(StackActions.push(name));
+	},[modalizeRef]);
+
 	return (
 		<>
 			<Container>
@@ -80,6 +79,7 @@ const Home: React.FC = () => {
 					region={region}
 					style={styles.map}
 					provider="google"
+					loadingBackgroundColor={theme.colors.primary2}
 					showsMyLocationButton={false}
 					userLocationAnnotationTitle={''}
 					loadingEnabled
@@ -88,12 +88,12 @@ const Home: React.FC = () => {
 				<IconButton
 					style={styles.boxShadow}
 					activeOpacity={0.7}
-					onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+					onPress={() => {}}
 				>
 					<IconButtonImage source={MiniIcon} />
 				</IconButton>
 				<NotificationButton style={styles.boxShadow} activeOpacity={0.7}>
-					<Ionicons name="notifications-outline" size={35} color={theme.colors.quiternary} />
+					<Ionicons name="notifications" size={35} color={theme.colors.quiternary} />
 				</NotificationButton>
 				<BottomCardButton style={styles.boxShadow}>
 					<ButtonOpenModalize activeOpacity={0.8} onPress={() => modalizeRef.current?.open()}>
@@ -105,31 +105,54 @@ const Home: React.FC = () => {
 							Favoritos
 						</TitleLabelText>
 					</TitleLabel>
-					<LocaleFavorited />
-					<LocaleFavorited />
+					<LocaleFavorited onPress={() => navigation.dispatch(StackActions.push('LocaleDetails'))}/>
+					<LocaleFavorited onPress={() => navigation.dispatch(StackActions.push('LocaleDetails'))}/>
 				</BottomCardButton>
 			</Container>
 			<Modalize
 				ref={modalizeRef}
-				modalHeight={height}
+				modalHeight={height - 50}
 				disableScrollIfPossible
 				modalStyle={{
 					backgroundColor: theme.colors.primary
 				}}
 			>
-				<View style={[styles.headerModalize]}>
-					<TouchableOpacity style={styles.modalizeHeaderCloseButton} onPress={() => modalizeRef.current?.close()}>
-						<FontAwesome name="chevron-left" size={24} color={theme.colors.quiternary} />
-					</TouchableOpacity>
-					<Text
-						style={[styles.modalizeHeaderText, {
-							color: theme.colors.quiternary
-						}]}
-					>
-						Para onde vamos?
-					</Text>
-					<View></View>
+				<View style={[styles.headerModalize, { backgroundColor: theme.colors.primary2 }]}>
+					<View style={styles.headerContainerModalize}>
+						<TouchableOpacity style={styles.headerButtonClose} onPress={() => modalizeRef.current?.close()}>
+							<FontAwesome name="chevron-left" size={24} color={theme.colors.quiternary} />
+						</TouchableOpacity>
+						<Text style={{ fontSize: 16, color: theme.colors.quiternary }}>Planejador de Viagens</Text>
+						<View></View>
+					</View>
+					<View style={styles.groupTextInput}>
+						<View style={[styles.containerTextInput, { backgroundColor: theme.colors.primary }]}>
+							<MaterialIcons name="radio-button-unchecked" size={16} color={theme.colors.quiternary} />
+							<TextInput
+								style={[styles.textInputModalize, { color: theme.colors.quiternary }]}
+								placeholderTextColor={theme.colors.quiternary}
+								placeholder="Sua localização atual"
+							/>
+						</View>
+						<View style={[styles.containerTextInput, { backgroundColor: theme.colors.primary }]}>
+							<MaterialIcons name="radio-button-checked" size={16} color={theme.colors.tertiary} />
+							<TextInput
+								style={[styles.textInputModalize, { color: theme.colors.quiternary }]}
+								placeholderTextColor={theme.colors.quiternary}
+								placeholder="Casa"
+							/>
+						</View>
+					</View>
 				</View>
+				<TitleLabel style={{ marginTop: 2 }}>
+					<TitleLabelText>
+						Rotas Sugeridas
+					</TitleLabelText>
+				</TitleLabel>
+				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
+				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
+				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
+				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
 			</Modalize>
 		</>
 	);
@@ -142,25 +165,38 @@ const styles = StyleSheet.create({
 	},
 	boxShadow: {
 		shadowOpacity: 0.75,
-		shadowRadius: 0,
+		shadowRadius: 4,
 		shadowColor: '#000',
-		shadowOffset: { height: 12, width: 12 },
+		shadowOffset: { height: 0, width: 0 },
 		elevation: 7
 	},
 	headerModalize: {
+		padding: 24,
+	},
+	headerContainerModalize: {
+		marginTop: 24,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		padding: 7,
-		paddingTop: 50
 	},
-	modalizeHeaderCloseButton: {
-		paddingLeft: 16, 
-		paddingRight: 16
-	},
-	modalizeHeaderText: {
+	headerButtonClose: {},
+	headerTitle: {
 		fontSize: 16,
-		fontWeight: 'bold'
+	},
+	groupTextInput: {
+
+	},
+	containerTextInput: {
+		marginTop: 16,
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderRadius: 10,
+		paddingHorizontal: 24
+	},
+	textInputModalize: {
+		marginLeft: 16,
+		height: 35,
+		width: '100%'
 	}
 });
 

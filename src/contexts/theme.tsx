@@ -21,6 +21,7 @@ export interface CustomThemeProps {
 		quaternary: string;
 		quaternary2: string;
 		quiternary: string;
+		quiternary2: string;
 		white: string;
 		black: string;
 	}

@@ -9,6 +9,7 @@ export default {
 			quaternary: '#00A5AB',
 			quaternary2: '#3B97EF',
 			quiternary: '#C4C4C4',
+			quiternary2: '#888888',
 			white: '#FFF',
 			black: '#000',
 		}
@@ -23,6 +24,7 @@ export default {
 			quaternary: '#00A5AB',
 			quaternary2: '#3B97EF',
 			quiternary: '#C4C4C4',
+			quiternary2: '#888888',
 			white: '#FFF',
 			black: '#000',
 		}

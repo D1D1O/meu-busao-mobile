@@ -9,27 +9,34 @@ interface Props {
 	onPress?: () => void;
 }
 
-const LocaleFavorited: React.FC<Props> = ({ onPress }) => {
+const LocaleSuggested: React.FC<Props> = ({ onPress }) => {
 
 	const { theme } = useTheme();
 
 	return (
 		<Container onPress={onPress}>
-			<View style={{ flexDirection: 'row' }}>
-				<View style={styles.containerImage}>
-					<FontAwesome name="home" size={24} color={theme.colors.quiternary} />
-				</View>
-				<View>
-					<Text style={{ color: theme.colors.white }}>Casa</Text>
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						<View style={[styles.containerNumberBuss, { backgroundColor: theme.colors.quiternary }]}>
-							<FontAwesome name="bus" size={14} color={theme.colors.primary2} />
-							<Text style={{ marginLeft: 5, fontWeight: 'bold' }}>
-								412
-							</Text>
-						</View>
-						<Text style={{ marginLeft: 16, color: theme.colors.white }}>Chega às 19:34</Text>
+			<View>
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+					<View style={[styles.containerNumberBuss, { backgroundColor: theme.colors.quiternary }]}>
+						<FontAwesome name="bus" size={14} color={theme.colors.primary2} />
+						<Text style={{ marginLeft: 5, fontWeight: 'bold' }}>
+							412
+						</Text>
+						<FontAwesome name="chevron-right" style={{ marginLeft: 5 }} size={16} color={theme.colors.quiternary2} />
+						<Text
+							style={{
+								marginLeft: 5,
+								fontWeight: 'bold',
+								backgroundColor: theme.colors.primary,
+								color: theme.colors.quiternary,
+								padding: 3,
+								borderRadius: 5
+							}}
+						>
+							10
+						</Text>
 					</View>
+					<Text style={{ marginLeft: 16, color: theme.colors.white }}>Chega às 19:34</Text>
 				</View>
 			</View>
 			<View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -60,4 +67,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default LocaleFavorited;
+export default LocaleSuggested;

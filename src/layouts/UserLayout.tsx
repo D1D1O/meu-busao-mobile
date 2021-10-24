@@ -2,13 +2,14 @@ import React, { useCallback } from 'react';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../pages/Home';
+import LocaleDetails from '../pages/LocaleDetails';
 import { useTheme } from '../contexts/theme';
 
-const { Navigator: StackNavigator, Screen: StackScreen } = createStackNavigator();
+const { Navigator: StackNavigator, Screen: StackScreen } = createNativeStackNavigator();
 const { Navigator: DrawerNavigator, Screen: DrawerScreen } = createDrawerNavigator();
 const { Navigator: TabsNavigator, Screen: TabsScreen } = createBottomTabNavigator();
 
@@ -24,9 +25,9 @@ const UserLayout: React.FC = () => {
 					headerShown: false,
 					tabBarIcon: ({ focused, color, size }) => {
 						if (route.name === 'Home') {
-							return <FontAwesome5 name="route" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary } />;
+							return <FontAwesome5 name="route" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary} />;
 						} else if (route.name === 'Route') {
-							return <MaterialCommunityIcons name="bus-clock" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary } />;
+							return <MaterialCommunityIcons name="bus-clock" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary} />;
 						}
 					},
 					tabBarStyle: {
@@ -55,11 +56,39 @@ const UserLayout: React.FC = () => {
 		);
 	}, []);
 
+	// const DrawerStack = useCallback(() => {
+	// 	return (
+	// 		<DrawerNavigator
+	// 			initialRouteName="TabsStack"
+	// 			screenOptions={{ headerShown: false }}
+	// 		>
+	// 			<DrawerScreen name="TabsStack" component={TabsStack} />
+	// 		</DrawerNavigator>
+	// 	);
+	// }, []);
+
 	return (
 		<NavigationContainer>
-			<DrawerNavigator screenOptions={{ headerShown: false }}>
-				<DrawerScreen name="TabsStack" component={TabsStack} />
-			</DrawerNavigator>
+			<StackNavigator
+				initialRouteName="TabsStack"
+				screenOptions={{ headerShown: false }}
+			>
+				<StackScreen name="TabsStack" component={TabsStack} />
+				<StackScreen 
+					name="LocaleDetails" 
+					component={LocaleDetails}
+					options={{
+						headerShown: true,
+						headerTitle: 'Direção',
+						headerTitleAlign: 'center',
+						headerBackTitleVisible: false,
+						headerStyle: {
+							backgroundColor:  theme.colors.primary
+						},
+						headerTintColor: theme.colors.quiternary
+					}}
+				/>
+			</StackNavigator>
 		</NavigationContainer>
 	);
 }
