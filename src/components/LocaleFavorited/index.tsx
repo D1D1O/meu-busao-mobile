@@ -28,7 +28,7 @@ const LocaleFavorited: React.FC<Props> = ({ onPress }) => {
 								412
 							</Text>
 						</View>
-						<Text style={{ marginLeft: 16, color: theme.colors.white }}>Chega às 19:34</Text>
+						<Text style={{ marginLeft: 10, color: theme.colors.white }}>Chega às 19:34</Text>
 					</View>
 				</View>
 			</View>
@@ -36,9 +36,9 @@ const LocaleFavorited: React.FC<Props> = ({ onPress }) => {
 				<View>
 					<FontAwesome5 name="clock" size={24} color={theme.colors.quiternary} />
 				</View>
-				<View>
-					<Text style={{ marginLeft: 16, color: theme.colors.white }}>Tempo Percurso</Text>
-					<Text style={{ marginLeft: 18, color: theme.colors.white }}>10 min</Text>
+				<View style={{ marginLeft: 7 }}>
+					<Text style={{ color: theme.colors.white }}>Tempo Percurso</Text>
+					<Text style={{ color: theme.colors.white }}>10 min</Text>
 				</View>
 			</View>
 		</Container>

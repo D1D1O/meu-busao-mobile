@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import MapView, { Marker, Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Modalize } from 'react-native-modalize';
-import { View, Dimensions, StyleSheet, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native';
+import { View, Dimensions, StyleSheet, TouchableOpacity, Text, TextInput, SafeAreaView } from 'react-native';
 import MiniIcon from '../../assets/mini-icon.png';
 import { Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, DrawerActions, StackActions } from '@react-navigation/native';
@@ -79,11 +79,13 @@ const Home: React.FC = () => {
 					region={region}
 					style={styles.map}
 					provider="google"
+					showsUserLocation
 					loadingBackgroundColor={theme.colors.primary2}
 					showsMyLocationButton={false}
 					userLocationAnnotationTitle={''}
 					loadingEnabled
 					customMapStyle={GoogleMapsStyle}
+					mapPadding={{ top: 0, right: 0, bottom: 170, left: 0 }}
 				/>
 				<IconButton
 					style={styles.boxShadow}
@@ -117,12 +119,13 @@ const Home: React.FC = () => {
 					backgroundColor: theme.colors.primary
 				}}
 			>
+				<SafeAreaView style={{ flex: 1 }}>
 				<View style={[styles.headerModalize, { backgroundColor: theme.colors.primary2 }]}>
 					<View style={styles.headerContainerModalize}>
 						<TouchableOpacity style={styles.headerButtonClose} onPress={() => modalizeRef.current?.close()}>
 							<FontAwesome name="chevron-left" size={24} color={theme.colors.quiternary} />
 						</TouchableOpacity>
-						<Text style={{ fontSize: 16, color: theme.colors.quiternary }}>Planejador de Viagens</Text>
+						<Text style={{ fontSize: 18, color: theme.colors.quiternary }}>Planejador de Viagens</Text>
 						<View></View>
 					</View>
 					<View style={styles.groupTextInput}>
@@ -153,6 +156,7 @@ const Home: React.FC = () => {
 				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
 				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
 				<LocaleSuggested onPress={() => navigatePush('LocaleDetails')} />	
+				</SafeAreaView>
 			</Modalize>
 		</>
 	);

@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../pages/Home';
+import Routes from '../pages/Routes';
 import LocaleDetails from '../pages/LocaleDetails';
 import { useTheme } from '../contexts/theme';
 
@@ -26,7 +27,7 @@ const UserLayout: React.FC = () => {
 					tabBarIcon: ({ focused, color, size }) => {
 						if (route.name === 'Home') {
 							return <FontAwesome5 name="route" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary} />;
-						} else if (route.name === 'Route') {
+						} else if (route.name === 'Routes') {
 							return <MaterialCommunityIcons name="bus-clock" size={24} color={focused ? theme.colors.quaternary2 : theme.colors.quiternary} />;
 						}
 					},
@@ -48,24 +49,13 @@ const UserLayout: React.FC = () => {
 					options={{ tabBarLabel: 'Home' }}
 				/>
 				<TabsScreen
-					name="Route"
-					component={Home}
+					name="Routes"
+					component={Routes}
 					options={{ tabBarLabel: 'Rotas' }}
 				/>
 			</TabsNavigator>
 		);
 	}, []);
-
-	// const DrawerStack = useCallback(() => {
-	// 	return (
-	// 		<DrawerNavigator
-	// 			initialRouteName="TabsStack"
-	// 			screenOptions={{ headerShown: false }}
-	// 		>
-	// 			<DrawerScreen name="TabsStack" component={TabsStack} />
-	// 		</DrawerNavigator>
-	// 	);
-	// }, []);
 
 	return (
 		<NavigationContainer>

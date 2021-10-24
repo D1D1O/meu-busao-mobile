@@ -24,28 +24,24 @@ const LocaleSuggested: React.FC<Props> = ({ onPress }) => {
 						</Text>
 						<FontAwesome name="chevron-right" style={{ marginLeft: 5 }} size={16} color={theme.colors.quiternary2} />
 						<Text
-							style={{
-								marginLeft: 5,
-								fontWeight: 'bold',
+							style={[styles.countBus, {
 								backgroundColor: theme.colors.primary,
 								color: theme.colors.quiternary,
-								padding: 3,
-								borderRadius: 5
-							}}
+							}]}
 						>
 							10
 						</Text>
 					</View>
-					<Text style={{ marginLeft: 16, color: theme.colors.white }}>Chega às 19:34</Text>
+					<Text style={{ marginLeft: 10, color: theme.colors.white }}>Chega às 19:34</Text>
 				</View>
 			</View>
 			<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 				<View>
 					<FontAwesome5 name="clock" size={24} color={theme.colors.quiternary} />
 				</View>
-				<View>
-					<Text style={{ marginLeft: 16, color: theme.colors.white }}>Tempo Percurso</Text>
-					<Text style={{ marginLeft: 18, color: theme.colors.white }}>10 min</Text>
+				<View style={{ marginLeft: 7 }}>
+					<Text style={{ color: theme.colors.white }}>Tempo Percurso</Text>
+					<Text style={{ color: theme.colors.white }}>10 min</Text>
 				</View>
 			</View>
 		</Container>
@@ -64,6 +60,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginTop: 5
+	},
+	countBus: {
+		marginLeft: 5,
+		fontWeight: 'bold',
+		padding: 3,
+		borderRadius: 5
 	}
 });
 
