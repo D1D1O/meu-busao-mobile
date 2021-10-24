@@ -8,10 +8,9 @@ Prototipação (FIGMA):
 https://www.figma.com/file/XLDFAkA9RMHUUADHEimxeY/Meu-busao?node-id=0%3A1
 
 
-
-
-
-
-![Alt text](/meu-busao-mobile/Prototipo/Alerta de atraso.png?raw=true "Optional Title")
-
-![alt text](https://github.com/Aluciney/meu-busao-mobile/blob/main/Prototipo/Home.jpg?raw=true)
+[<img src="https://github.com/Aluciney/meu-busao-mobile/blob/main/Prototipo/Home.png" width="250"/>](image.png)
+[<img src="https://github.com/Aluciney/meu-busao-mobile/blob/main/Prototipo/Planejando.png" width="250"/>](image.png)
+[<img src="https://github.com/Aluciney/meu-busao-mobile/blob/main/Prototipo/Detalhe-Rota-Onibus.png" width="250"/>](image.png)
+[<img src="https://github.com/Aluciney/meu-busao-mobile/blob/main/Prototipo/Alerta-de-atraso.png" width="250"/>](image.png)
+ 
+  
